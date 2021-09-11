@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance-Senate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="shortcut icon" href="./assets/favicon.png">
+</head>
+
+<body>
+    <div id="app" class="container-fluid">
+        <header class="row justify-content-between align-items-center">
+            <a href="./index.html" class="col-5 col-md-3"><img src="./assets/logo.png" alt="logo" class="col-12"
+                    id="logo"></a>
+            <div class="col-4 col-md-3 col-lg-2">
+                <img src="./assets/mail.png" alt="mail" id="mail" class="col">
+                <a href="mailto:info@tgif.net" class="col">info@tgif.net</a>
+            </div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" aria-current="page" href="#" id="navbarDropdown"
+                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Congress 113
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="house-data.html">House</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="senate-data.html">Senate</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link active dropdown-toggle" aria-current="page" href="#"
+                                    id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Attendance
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="house-attendance.html">House</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item active" href="#">Senate</a></li>
+                                </ul>
+                            </li>    
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" aria-current="page" href="#" id="navbarDropdown3"
+                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Party Loyalty
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="house-partyLoyalty.html">House</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="senate-partyLoyalty.html">Senate</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main class="row container-fluid justify-content-between">
+            <section class="row col-12 container justify-content-between">
+                <article class="col col-12 col-lg-7">
+                    <h2 class="col col-12">Attendance</h2>
+                    <p class="col col-12">The Constitution specifies that a majority of members constitutes a quorum to do business in each house. Representatives and senators rarely force the presence of a quorum by demanding quorum calls; thus, in most cases, debates continue even if a majority is not present.</p>
+                    <p class="col col-12">  The Senate uses roll-call votes; a clerk calls out the names of all the
+                        senators, each senator stating "aye" or "no" when his or her name is announced. The House
+                        reserves roll-call votes for the most formal matters, as a roll-call of all 435 representatives
+                        takes quite some time; normally, members vote by electronic device. In the case of a tie, the
+                        motion in question fails. In the Senate, the Vice President may (if present) cast the
+                        tiebreaking vote.</p>
+                </article>
+                <article id="article" class="col col-12 col-lg-5">
+                    <h6 class="col col-12 senate">Senate at a glance</h6>
+                    <table class="table-responsive-sm table table-striped table-hover col-12" id="senate">
+                        <thead class="col-12">
+                            <tr>
+                                <th>Party</th>
+                                <th>No. of Representatives</th>
+                                <th>&#37; Missed Vote</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendance">
+                            <tr>
+                                <td>Democrat</td>
+                                <td>{{statistics.democrats.length}}</td>
+                                <td>{{statistics.averageMissesVoteDemocrats}}&#37;</td>
+                            </tr>
+                            <tr>
+                                <td>Republican</td>
+                                <td>{{statistics.republicans.length}}</td>
+                                <td>{{statistics.averageMissesVoteRepublicans}}&#37;</td>
+                            </tr>
+                            <tr>
+                                <td>Independent</td>
+                                <td>{{statistics.independents.length}}</td>
+                                <td v-if="isNaN(statistics.averageMissesVoteIndependents)">0.00&#37;</td>
+                                <td v-else>{{(statistics.averageMissesVoteIndependents).toFixed(2)}}&#37;</td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td>{{(statistics.democrats.length + statistics.republicans.length + statistics.independents.length)}}</td>
+                                <td v-if="isNaN(statistics.averageMissesVoteIndependents)">{{(((statistics.averageMissesVoteDemocrats) + (statistics.averageMissesVoteRepublicans))/2).toFixed(2)}}&#37;</td>
+                                <td v-else>{{(((statistics.averageMissesVoteDemocrats) + (statistics.averageMissesVoteRepublicans) + (statistics.averageMissesVoteIndependents))/3).toFixed(2)}}&#37;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </article>
+            </section>
+            <section id= "bottom-table" class="row col-12 justify-content-between">
+                <article class="col col-12 col-lg-6 engaged">
+                    <h6 class="col col-12">Least Engaged (Bottom 10&#37; Attendance)</h6>
+                    <div class="table-least col-12">
+                        <table class="table-responsive-sm table table-striped table-hover col-12" id="head-attendance2">
+                            <thead class="col-12">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>No. Missed Votes</th>
+                                    <th>&#37; Missed Vote</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="member in statistics.leastEngaged">
+                                    <td><a v-bind:href="member.url || null" target="_blank" rel="noopener noreferrer">{{member.last_name}}, {{member.first_name}} {{member.middle_name || ""}}</a></td>
+                                    <td>{{member.missed_votes}}</td>
+                                    <td>{{(member.missed_votes_pct).toFixed(2)}}&#37;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+                    <article class="col col-12 col-lg-6 engaged">
+                        <h6 class="col col-12">Most Engaged (Top 10&#37; Attendance)</h6>
+                        <div class="table-least col-12">
+                            <table itemid="senate" class="table-responsive-sm table table-striped table-hover col-12" id="head-attendance3">
+                                <thead class="col-12">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>No. Missed Votes</th>
+                                        <th>&#37; Missed Vote</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="member in statistics.mostEngaged">
+                                        <td><a v-bind:href="member.url || null" target="_blank" rel="noopener noreferrer">{{member.last_name}}, {{member.first_name}} {{member.middle_name || ""}}</a></td>
+                                        <td>{{member.missed_votes}}</td>
+                                        <td>{{(member.missed_votes_pct).toFixed(2)}}&#37;</td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+            </section>
+        </main>
+        <footer class="row justify-content-center align-items-center">
+            <p id="pie" class="col-3 col-lg-2 text-end">&copy; 2016 TGIF</p>
+            <p class="col-4 col-lg-2">All Rights Reserve</p>
+        </footer>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/vue@next"></script>
+    <script src="./scripts/app.js"></script>
+</body>
+
+</html>
