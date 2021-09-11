@@ -49,7 +49,7 @@ div#accordionExample{
 div.accordion-item{
     background: linear-gradient(to bottom, #3DB2FF,#99d5fd, #3DB2FF) !important;
 }
-p.col{
+p.col, h4{
     padding-left: 2rem !important;
     padding-right: 1rem !important;
     background-color: #C8C6A7;
@@ -75,7 +75,7 @@ article#article {
     padding-right: 0 !important;
     margin-left: 0 !important;
 }
-img.col-8{
+img.col-12.col-lg-8{
     margin-top: 2rem;
 }
 div#nav-select{
